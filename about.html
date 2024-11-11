@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Portfolio - Creative Professional</title>
+    <title>About Me - Your Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/about.css">
 </head>
 <body>
     <header>
@@ -38,51 +39,27 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero-section">
-            <h1>Creative Solutions for Modern Brands</h1>
-            <p class="hero-text">Transforming ideas into impactful digital experiences</p>
-            <a href="contact.html" class="cta-button">Get Started</a>
+        <section class="about-hero">
+            <h1>About Me</h1>
+            <p class="lead-text">Crafting digital experiences with purpose and passion</p>
         </section>
 
-        <!-- Services Snapshot -->
-        <section id="services-snapshot" class="services-preview">
-            <h2>Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>Branding</h3>
-                    <p>Strategic brand development and identity design</p>
-                </div>
-                <div class="service-card">
-                    <h3>Graphic Design</h3>
-                    <p>Compelling visual solutions for print and digital</p>
-                </div>
-                <div class="service-card">
-                    <h3>Web Development</h3>
-                    <p>Custom websites and digital experiences</p>
-                </div>
+        <section class="about-navigation">
+            <div class="nav-card" onclick="location.href='about/journey.html'">
+                <h2>My Journey</h2>
+                <p>Discover the path that led me here</p>
             </div>
-        </section>
-
-        <!-- Impact Statement -->
-        <section id="impact" class="impact-section">
-            <h2>Making a Difference</h2>
-            <p>Through creative solutions, we've helped X brands achieve Y results...</p>
-        </section>
-
-        <!-- Featured Work -->
-        <section id="featured" class="featured-work">
-            <h2>Featured Projects</h2>
-            <div class="project-grid">
-                <!-- Project cards will go here -->
+            <div class="nav-card" onclick="location.href='about/mission.html'">
+                <h2>Mission & Values</h2>
+                <p>What drives me forward</p>
             </div>
-        </section>
-
-        <!-- Testimonials Preview -->
-        <section id="testimonials" class="testimonials-preview">
-            <h2>Client Testimonials</h2>
-            <div class="testimonials-slider">
-                <!-- Testimonial cards will go here -->
+            <div class="nav-card" onclick="location.href='about/impact.html'">
+                <h2>Community Impact</h2>
+                <p>Making a difference through design</p>
+            </div>
+            <div class="nav-card" onclick="location.href='about/media.html'">
+                <h2>Media & Recognition</h2>
+                <p>Featured works and achievements</p>
             </div>
         </section>
     </main>
