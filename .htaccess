@@ -1,0 +1,24 @@
+# Redirect all error types to error.html
+ErrorDocument 404 /error.html
+ErrorDocument 403 /error.html
+ErrorDocument 500 /error.html
+
+# Redirect unfinished pages to error.html
+RedirectMatch 301 ^/contact.html$ /error.html
+RedirectMatch 301 ^/about/mission.html$ /error.html
+RedirectMatch 301 ^/about/impact.html$ /error.html
+RedirectMatch 301 ^/about/media.html$ /error.html
+RedirectMatch 301 ^/blog/industry-insights/(.*)$ /error.html
+RedirectMatch 301 ^/blog/crisis-updates/(.*)$ /error.html
+RedirectMatch 301 ^/blog/tips-tutorials/(.*)$ /error.html
+RedirectMatch 301 ^/resources/(.*)$ /error.html
+RedirectMatch 301 ^/legal/(.*)$ /error.html
+RedirectMatch 301 ^/portfolio/(.*)$ /error.html
+RedirectMatch 301 ^/blog/skill-development/quizzes.html$ /error.html
+RedirectMatch 301 ^/downloads/(.*)$ /error.html
+RedirectMatch 301 ^/tools/(.*)$ /error.html
+RedirectMatch 301 ^/privacy.html$ /error.html
+RedirectMatch 301 ^/terms.html$ /error.html
+
+# Catch any other non-existent pages
+RedirectMatch 301 ^/(.*)\.html$ /error.html

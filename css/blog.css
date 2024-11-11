@@ -1,0 +1,118 @@
+/* Blog specific styles */
+.blog-hero {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.7)),
+                url('../images/blog-bg.jpg') center/cover;
+    margin-top: 60px;
+}
+
+.blog-intro {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 1rem auto;
+    color: var(--text-secondary);
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.blog-card {
+    background: var(--bg-secondary);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.blog-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-color);
+    box-shadow: 0 10px 30px rgba(114, 137, 218, 0.1);
+}
+
+.blog-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.blog-features {
+    list-style: none;
+    margin: 1.5rem 0;
+    text-align: left;
+    width: 100%;
+}
+
+.blog-features li {
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.blog-features li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+.blog-link {
+    margin-top: auto;
+    padding: 0.8rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.blog-link:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateX(5px);
+}
+
+.featured-section {
+    background: var(--bg-secondary);
+    padding: 6rem 2rem;
+    margin-top: 4rem;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 3rem auto 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .blog-hero {
+        height: 30vh;
+    }
+
+    .blog-intro {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+
+    .blog-grid {
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
+} 
