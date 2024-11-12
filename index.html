@@ -6,6 +6,7 @@
     <title>Your Portfolio - Creative Professional</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loader.css">
 </head>
 <body>
     <header>
@@ -57,51 +58,84 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero-section">
-            <h1>Creative Solutions for Modern Brands</h1>
-            <p class="hero-text">Transforming ideas into impactful digital experiences</p>
-            <a href="contact.html" class="cta-button">Get Started</a>
+        <!-- Enhanced Hero Section -->
+        <section id="hero" class="hero-section glass-card">
+            <div class="hero-content">
+                <h1 class="gradient-text">Creative Solutions for Modern Brands</h1>
+                <p class="hero-text">Transforming ideas into impactful digital experiences</p>
+                <div class="hero-cta">
+                    <a href="contact.html" class="glass-button hover-lift">Get Started</a>
+                    <a href="portfolio.html" class="text-button">View Work →</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <!-- Add dynamic visual element here -->
+                <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
+            </div>
         </section>
 
-        <!-- Services Snapshot -->
+        <!-- Enhanced Services Preview -->
         <section id="services-snapshot" class="services-preview">
-            <h2>Services</h2>
+            <div class="section-header">
+                <h2 class="gradient-text">Services</h2>
+                <p class="section-intro">Comprehensive solutions for your digital needs</p>
+            </div>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-preview-card glass-card hover-lift">
+                    <div class="service-icon">✨</div>
                     <h3>Branding</h3>
                     <p>Strategic brand development and identity design</p>
+                    <div class="card-hover-effect"></div>
                 </div>
-                <div class="service-card">
-                    <h3>Graphic Design</h3>
-                    <p>Compelling visual solutions for print and digital</p>
-                </div>
-                <div class="service-card">
-                    <h3>Web Development</h3>
-                    <p>Custom websites and digital experiences</p>
+                <!-- Add more service preview cards -->
+            </div>
+        </section>
+
+        <!-- Enhanced Impact Statement -->
+        <section id="impact" class="impact-section glass-card">
+            <div class="impact-content">
+                <h2 class="gradient-text">Making a Difference</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Projects Completed</span>
+                    </div>
+                    <!-- Add more stat cards -->
                 </div>
             </div>
         </section>
 
-        <!-- Impact Statement -->
-        <section id="impact" class="impact-section">
-            <h2>Making a Difference</h2>
-            <p>Through creative solutions, we've helped X brands achieve Y results...</p>
-        </section>
-
-        <!-- Featured Work -->
+        <!-- Enhanced Featured Work -->
         <section id="featured" class="featured-work">
-            <h2>Featured Projects</h2>
+            <div class="section-header">
+                <h2 class="gradient-text">Featured Projects</h2>
+            </div>
             <div class="project-grid">
-                <!-- Project cards will go here -->
+                <article class="project-card glass-card hover-lift">
+                    <div class="project-image">
+                        <img src="path/to/image" alt="Project">
+                    </div>
+                    <div class="project-info">
+                        <h3>Project Name</h3>
+                        <p>Brief description</p>
+                        <a href="#" class="project-link">View Case Study →</a>
+                    </div>
+                </article>
+                <!-- Add more project cards -->
             </div>
         </section>
 
-        <!-- Testimonials Preview -->
-        <section id="testimonials" class="testimonials-preview">
-            <h2>Client Testimonials</h2>
+        <!-- Enhanced Testimonials -->
+        <section id="testimonials" class="testimonials-preview glass-card">
+            <div class="section-header">
+                <h2 class="gradient-text">Client Testimonials</h2>
+            </div>
             <div class="testimonials-slider">
-                <!-- Testimonial cards will go here -->
+                <!-- Add testimonial cards -->
             </div>
         </section>
     </main>
