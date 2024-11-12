@@ -1926,6 +1926,470 @@ footer {
 
 
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Hamburger Menu Styles */
+
+
+
+
+
+
+
+.hamburger {
+
+
+
+
+
+
+
+    display: none;
+
+
+
+
+
+
+
+    flex-direction: column;
+
+
+
+
+
+
+
+    cursor: pointer;
+
+
+
+
+
+
+
+    gap: 5px;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.hamburger div {
+
+
+
+
+
+
+
+    width: 25px;
+
+
+
+
+
+
+
+    height: 3px;
+
+
+
+
+
+
+
+    background-color: var(--text-primary);
+
+
+
+
+
+
+
+    transition: all 0.3s ease;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Mobile Navigation Styles */
+
+
+
+
+
+
+
+.mobile-nav {
+
+
+
+
+
+
+
+    display: none;
+
+
+
+
+
+
+
+    flex-direction: column;
+
+
+
+
+
+
+
+    position: absolute;
+
+
+
+
+
+
+
+    top: 100%;
+
+
+
+
+
+
+
+    left: 0;
+
+
+
+
+
+
+
+    right: 0;
+
+
+
+
+
+
+
+    background: rgba(31, 31, 31, 0.95);
+
+
+
+
+
+
+
+    backdrop-filter: blur(10px);
+
+
+
+
+
+
+
+    padding: 1rem 0;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mobile-nav ul {
+
+
+
+
+
+
+
+    flex-direction: column;
+
+
+
+
+
+
+
+    gap: 1rem;
+
+
+
+
+
+
+
+    align-items: center;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mobile-nav a {
+
+
+
+
+
+
+
+    padding: 0.5rem 2rem;
+
+
+
+
+
+
+
+    width: 100%;
+
+
+
+
+
+
+
+    text-align: center;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Show Hamburger and Hide Desktop Nav on Mobile */
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+
+
+
+
+
+
+
+    /* Hide the desktop navigation */
+
+
+
+
+
+
+
+    .main-nav ul {
+
+
+
+
+
+
+
+        display: none;
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Display the hamburger icon */
+
+
+
+
+
+
+
+    .hamburger {
+
+
+
+
+
+
+
+        display: flex;
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Display the mobile navigation when active */
+
+
+
+
+
+
+
+    .mobile-nav.active {
+
+
+
+
+
+
+
+        display: flex;
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
 } 
 
 
