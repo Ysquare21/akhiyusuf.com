@@ -1,3 +1,55 @@
+/* Primary Button Style - move this higher in the file */
+.primary-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: transparent;
+    padding: 1.2rem 2.5rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.primary-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+
+.primary-btn span {
+    position: relative;
+    z-index: 1;
+    transition: all 0.4s ease;
+}
+
+.primary-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.primary-btn:hover span {
+    color: black;
+    font-weight: 600;
+}
+
+.primary-btn:hover .icon {
+    transform: translateX(5px);
+    font-weight: 700;
+}
+
 /* Enhanced UI Patterns */
 
 /* Glassmorphic Cards with Dynamic Hover */
@@ -180,70 +232,106 @@
     --mouse-y: 50%;
 }
 
-/* Enhanced CTA Styles */
-.hero-cta {
-    display: flex;
-    justify-content: center; /* Center the CTAs */
-    align-items: center;
-    gap: 2rem;
-    margin-top: 3rem;
-    width: 100%; /* Ensure full width */
-}
-
-.primary-cta {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 1.2rem 2.8rem;
-    border-radius: 40px;
+/* Global Primary Button Style */
+.primary-btn,
+.primary-cta,
+.service-link,
+.package-cta,
+.cta-button {
     display: flex;
     align-items: center;
     gap: 1rem;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    padding: 1.2rem 2.5rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    cursor: pointer;
 }
 
-.primary-cta::before {
+/* Gradient fill effect */
+.primary-btn::before,
+.primary-cta::before,
+.service-link::before,
+.package-cta::before,
+.cta-button::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
-    );
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
 }
 
-.primary-cta:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
-    box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.2),
-        0 0 20px rgba(255, 255, 255, 0.05);
+/* Button text and icon */
+.primary-btn span,
+.primary-cta span,
+.service-link span,
+.package-cta span,
+.cta-button span {
+    position: relative;
+    z-index: 1;
+    transition: all 0.4s ease;
 }
 
-.primary-cta:hover::before {
-    transform: translateX(100%);
+/* Hover states */
+.primary-btn:hover::before,
+.primary-cta:hover::before,
+.service-link:hover::before,
+.package-cta:hover::before,
+.cta-button:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
-.cta-icon {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
+.primary-btn:hover,
+.primary-cta:hover,
+.service-link:hover,
+.package-cta:hover,
+.cta-button:hover {
+    border-color: var(--accent-color);
 }
 
-.primary-cta:hover .cta-icon {
+.primary-btn:hover span,
+.primary-cta:hover span,
+.service-link:hover span,
+.package-cta:hover span,
+.cta-button:hover span {
+    color: black;
+    font-weight: 600;
+}
+
+/* Icon specific hover */
+.primary-btn:hover .icon,
+.primary-cta:hover .cta-icon,
+.service-link:hover .icon,
+.package-cta:hover .icon,
+.cta-button:hover .icon {
     transform: translateX(5px);
+    font-weight: 700;
 }
 
+/* Secondary CTA styles */
 .secondary-cta {
     color: rgba(255, 255, 255, 0.8);
     font-size: 1.1rem;
     position: relative;
     padding: 0.8rem 0;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
+}
+
+.secondary-cta:hover {
+    color: white;
+    text-shadow: 0 0 15px rgba(114, 137, 218, 0.8);
 }
 
 .cta-hover-effect {
@@ -255,16 +343,13 @@
     background: linear-gradient(
         to right,
         transparent,
-        var(--accent-color),
+        rgba(114, 137, 218, 0.8),
         transparent
     );
     transform: scaleX(0);
     transform-origin: center;
     transition: transform 0.3s ease;
-}
-
-.secondary-cta:hover {
-    color: white;
+    box-shadow: 0 0 10px rgba(114, 137, 218, 0.6);
 }
 
 .secondary-cta:hover .cta-hover-effect {
@@ -293,16 +378,22 @@
     padding: 2rem;
     margin-top: 60px;
     position: relative;
+    background: transparent; /* Ensure no background */
 }
 
 .hero-section .gradient-text {
-    font-size: 4.5rem;
+    font-size: 3.8rem;
     max-width: 900px;
     margin-bottom: 1.5rem;
+    text-shadow: 
+        0 0 30px rgba(114, 137, 218, 0.3),  /* Soft blue glow */
+        0 0 60px rgba(114, 137, 218, 0.2),  /* Medium spread */
+        0 0 90px rgba(114, 137, 218, 0.1);  /* Wide spread */
+    animation: headerGlow 3s ease-in-out infinite;
 }
 
 .hero-text {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: rgba(255, 255, 255, 0.8);
     max-width: 600px;
     margin: 0 auto 3rem;
@@ -317,4 +408,718 @@
     align-items: center;
     gap: 3rem;
     margin-top: 2rem;
+}
+
+/* Update bento services grid */
+.services-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Bento Card Base Styles */
+.bento-service {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    isolation: isolate;
+    cursor: default;
+}
+
+/* Bento Card Sizes */
+.bento-service.large {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.bento-service.medium {
+    grid-column: span 2;
+}
+
+.bento-service.small {
+    grid-column: span 1;
+}
+
+.bento-service.medium-alt {
+    grid-column: 3 / span 2;
+    grid-row: 3;
+}
+
+/* Bento Card Content Styles */
+.bento-service .service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.bento-service h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.bento-service p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Enhanced mouse-following glow */
+.bento-service {
+    position: relative;
+    overflow: hidden;
+}
+
+.bento-service::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.06),
+        transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bento-service:hover::before {
+    opacity: 1;
+}
+
+/* Ensure content stays above the glow */
+.bento-service .service-icon,
+.bento-service h3,
+.bento-service p,
+.bento-service .service-link {
+    position: relative;
+    z-index: 2;
+}
+
+/* Service Link Styles */
+.service-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: transparent;
+    padding: 1.2rem 2.5rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    cursor: pointer;
+    margin-top: auto;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.service-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+
+.service-link span {
+    position: relative;
+    z-index: 1;
+    transition: all 0.4s ease;
+}
+
+.bento-service:hover .service-link {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.service-link:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.service-link:hover span {
+    color: black;
+    font-weight: 600;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .services-bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .services-bento-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bento-service.large,
+    .bento-service.medium,
+    .bento-service.small,
+    .bento-service.medium-alt {
+        grid-column: auto;
+        grid-row: auto;
+    }
+}
+
+/* Global Card Styles */
+.bento-card {
+    background: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card sizes */
+.bento-card.large {
+    grid-column: span 2;
+    grid-row: span 2;
+    padding: 2rem;
+}
+
+.bento-card.medium {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.bento-card.small {
+    grid-column: span 1;
+    min-height: 140px;
+}
+
+/* Card content styling */
+.bento-card .card-icon {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.9;
+}
+
+.bento-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.bento-card p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+/* Enhanced hover effects */
+.bento-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: scale(0.98);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Card link styling */
+.card-link {
+    margin-top: auto;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.bento-card:hover .card-link {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section .gradient-text {
+        font-size: 2.8rem;
+    }
+
+    .hero-text {
+        font-size: 1rem;
+    }
+}
+
+@keyframes headerGlow {
+    0%, 100% {
+        text-shadow: 
+            0 0 30px rgba(114, 137, 218, 0.3),
+            0 0 60px rgba(114, 137, 218, 0.2),
+            0 0 90px rgba(114, 137, 218, 0.1);
+    }
+    50% {
+        text-shadow: 
+            0 0 40px rgba(114, 137, 218, 0.4),
+            0 0 80px rgba(114, 137, 218, 0.3),
+            0 0 120px rgba(114, 137, 218, 0.2);
+    }
+}
+
+/* Enhanced Service Cards */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: rgba(31, 31, 31, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+/* Enhanced icon styling */
+.service-icon {
+    font-size: 4rem;
+    margin-bottom: 2.5rem;
+    background: linear-gradient(135deg, var(--accent-color), #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.5s ease;
+}
+
+/* Enhanced heading */
+.service-card h2 {
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+    color: white;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+/* Enhanced features list */
+.service-features {
+    list-style: none;
+    margin: 0 0 5rem;
+    text-align: left;
+    width: 100%;
+}
+
+.service-features li {
+    margin-bottom: 1.5rem;
+    padding-left: 2.5rem;
+    position: relative;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.15rem;
+    transition: all 0.4s ease;
+    line-height: 1.4;
+}
+
+.service-features li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+/* Button positioning */
+.service-card .primary-btn {
+    position: absolute;
+    bottom: 3.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 6rem);
+}
+
+/* Featured Projects Button Fix */
+.project-info {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding-bottom: 7rem;
+}
+
+.project-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, #fff, #ccc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.project-tags span {
+    background: rgba(114, 137, 218, 0.1);
+    color: var(--accent-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(114, 137, 218, 0.2);
+    line-height: 1.4;
+}
+
+.project-info p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 90%;
+}
+
+/* Button positioning */
+.project-card .primary-btn {
+    width: 200px;
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+/* Project Card Hover Effects */
+.project-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(114, 137, 218, 0.3);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.2),
+        0 0 30px rgba(114, 137, 218, 0.1);
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.1);
+}
+
+.project-card:hover .project-tags span {
+    background: rgba(114, 137, 218, 0.2);
+    border-color: var(--accent-color);
+}
+
+/* Testimonials Section */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.testimonial-card {
+    background: rgba(31, 31, 31, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-author {
+    margin-bottom: 2rem;
+}
+
+.author-info h4 {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.author-info p {
+    color: var(--accent-color);
+    font-size: 0.95rem;
+}
+
+.testimonial-content {
+    position: relative;
+    padding-top: 2rem;
+}
+
+.testimonial-content::before {
+    content: '"';
+    font-size: 4rem;
+    color: var(--accent-color);
+    position: absolute;
+    top: -1rem;
+    left: -0.5rem;
+    opacity: 0.3;
+}
+
+.testimonial-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+/* Testimonial Card Hover Effects */
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(114, 137, 218, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .project-grid,
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .project-grid,
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Impact Section - Increased height */
+.impact-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 8rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+}
+
+/* Mouse tracking animation for Impact Section */
+.impact-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.06),
+        transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.impact-section:hover::before {
+    opacity: 1;
+}
+
+/* Make content stay above the glow effect */
+.impact-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Reduced tag sizes in Featured Projects */
+.project-tags span {
+    background: rgba(114, 137, 218, 0.1);
+    color: var(--accent-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(114, 137, 218, 0.2);
+    transition: all 0.3s ease;
+}
+
+.project-tags {
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+}
+
+/* Project Card Button */
+.project-card .primary-btn {
+    width: 200px;
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 1.5rem;
+    white-space: nowrap;
+}
+
+/* Adjust button text size */
+.project-card .primary-btn .cta-text {
+    font-size: 0.9rem;
+}
+
+/* Project Carousel */
+.project-carousel {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-top: 4rem;
+    height: 800px;
+}
+
+.project-card {
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: visible;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(31, 31, 31, 0.6);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-card.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.project-info {
+    padding: 2.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    padding-bottom: 8rem;
+}
+
+.project-info p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+/* Button positioning */
+.project-card .primary-btn {
+    width: 200px;
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+/* Update carousel dots to match process section */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0;
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dot:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        0 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+.dot.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: scale(1.3);
+    box-shadow: 
+        0 6px 15px rgba(114, 137, 218, 0.3),
+        0 0 0 4px rgba(114, 137, 218, 0.2);
+}
+
+/* Services Section Header */
+.services-preview {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.services-preview h2.gradient-text {
+    font-size: 3.5rem;
+    margin-bottom: 3rem;
+    background: linear-gradient(
+        to right,
+        var(--accent-color) 20%,
+        #ffffff 50%,
+        var(--accent-color) 80%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 
+        0 0 20px rgba(114, 137, 218, 0.3),
+        0 0 40px rgba(114, 137, 218, 0.2);
+    position: relative;
+    display: inline-block;
 }

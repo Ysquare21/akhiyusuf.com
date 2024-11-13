@@ -23,83 +23,149 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Enhanced carousel functionality
-    const timeline = document.querySelector('.process-timeline');
-    const steps = document.querySelectorAll('.process-step');
+    // Mouse tracking for bento cards
+    const bentoCards = document.querySelectorAll('.bento-service');
+    
+    if (bentoCards.length > 0) {
+        bentoCards.forEach(card => {
+            card.classList.add('track-mouse');
+            
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                requestAnimationFrame(() => {
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.setProperty('--mouse-x', '50%');
+                card.style.setProperty('--mouse-y', '50%');
+            });
+        });
+    }
+
+    // Process section animations
+    const processSteps = document.querySelectorAll('.process-step');
     const dots = document.querySelectorAll('.dot');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    let currentIndex = 0;
+    let currentStep = 0;
 
-    function updateContent(index) {
-        const stepNumber = document.querySelector('.step-number');
-        const stepTitle = document.querySelector('.step-content h3');
-        const stepText = document.querySelector('.step-content p');
-        
-        const steps = [
-            { number: '01', title: 'Discovery', text: 'Understanding project goals' },
-            { number: '02', title: 'Strategy', text: 'Creating strategies for success' },
-            { number: '03', title: 'Creation', text: 'Implementing creative solutions' },
-            { number: '04', title: 'Refinement', text: 'Refining details to perfection' }
-        ];
-
-        // Fade out
-        [stepNumber, stepTitle, stepText].forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(10px)';
+    function updateProcessStep(index) {
+        // Update steps
+        processSteps.forEach((step, i) => {
+            if (i === index) {
+                step.classList.add('active');
+                step.style.opacity = '1';
+                step.style.visibility = 'visible';
+            } else {
+                step.classList.remove('active');
+                step.style.opacity = '0';
+                step.style.visibility = 'hidden';
+            }
         });
 
         // Update dots
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
         });
-
-        // Update content after fade out
-        setTimeout(() => {
-            stepNumber.textContent = steps[index].number;
-            stepTitle.textContent = steps[index].title;
-            stepText.textContent = steps[index].text;
-
-            // Fade in
-            [stepNumber, stepTitle, stepText].forEach(el => {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            });
-        }, 300);
     }
 
-    // Dot navigation
+    // Add click handlers for dots
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            currentIndex = index;
-            updateContent(currentIndex);
+            currentStep = index;
+            updateProcessStep(currentStep);
         });
     });
 
-    // Auto advance
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % 4;
-        updateContent(currentIndex);
+    // Auto advance process steps
+    let autoAdvance = setInterval(() => {
+        currentStep = (currentStep + 1) % processSteps.length;
+        updateProcessStep(currentStep);
     }, 5000);
 
-    // Event listeners for navigation
-    prevBtn?.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + steps.length) % steps.length;
-        updateContent(currentIndex);
+    // Pause auto-advance when interacting with dots
+    dots.forEach(dot => {
+        dot.addEventListener('mouseenter', () => clearInterval(autoAdvance));
+        dot.addEventListener('mouseleave', () => {
+            autoAdvance = setInterval(() => {
+                currentStep = (currentStep + 1) % processSteps.length;
+                updateProcessStep(currentStep);
+            }, 5000);
+        });
     });
 
-    nextBtn?.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % steps.length;
-        updateContent(currentIndex);
+    // Initialize first step
+    updateProcessStep(0);
+
+    // Add mouse tracking for Impact Section
+    const impactSection = document.querySelector('.impact-section');
+    if (impactSection) {
+        impactSection.addEventListener('mousemove', e => {
+            const rect = impactSection.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            requestAnimationFrame(() => {
+                impactSection.style.setProperty('--mouse-x', `${x}px`);
+                impactSection.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    }
+
+    // Project carousel functionality
+    const projectCards = document.querySelectorAll('.project-card');
+    const projectDots = document.querySelectorAll('.carousel-dots .dot');
+    let currentProject = 0;
+
+    function updateProject(index) {
+        projectCards.forEach((card, i) => {
+            if (i === index) {
+                card.style.opacity = '0';
+                card.style.zIndex = '1';
+                
+                requestAnimationFrame(() => {
+                    card.classList.add('active');
+                    card.style.opacity = '1';
+                });
+            } else {
+                card.classList.remove('active');
+                card.style.opacity = '0';
+                card.style.zIndex = '0';
+            }
+        });
+
+        projectDots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+
+    // Add click handlers for project dots
+    projectDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentProject = index;
+            updateProject(currentProject);
+        });
     });
 
-    // Pause auto-advance on hover
-    timeline.addEventListener('mouseenter', () => {
-        clearInterval(autoAdvance);
-    });
+    // Auto advance projects
+    let projectAutoAdvance = setInterval(() => {
+        currentProject = (currentProject + 1) % projectCards.length;
+        updateProject(currentProject);
+    }, 5000);
 
-    timeline.addEventListener('mouseleave', () => {
-        autoAdvance = setInterval(nextSlide, 5000);
+    // Pause auto-advance when interacting with dots
+    projectDots.forEach(dot => {
+        dot.addEventListener('mouseenter', () => clearInterval(projectAutoAdvance));
+        dot.addEventListener('mouseleave', () => {
+            projectAutoAdvance = setInterval(() => {
+                currentProject = (currentProject + 1) % projectCards.length;
+                updateProject(currentProject);
+            }, 5000);
+        });
     });
 
 }); 

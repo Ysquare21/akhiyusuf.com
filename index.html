@@ -58,40 +58,23 @@
     </header>
 
     <main>
-        <!-- Enhanced Hero Section -->
+        <!-- Hero Section -->
         <section id="hero" class="hero-section">
-            <h1 class="gradient-text">Creative Solutions for Modern Brands</h1>
-            <p class="hero-text">Transforming ideas into impactful digital experiences</p>
+            <h1 class="gradient-text">Akhi Yusuf Developer/Designer</h1>
+            <p class="hero-text">Donating 80% of Earnings to Aid Groups and Palestinians in Need</p>
             <div class="hero-cta">
-                <a href="contact.html" class="primary-cta glass-button">
-                    <span class="cta-text">Get Started</span>
+                <a href="contact.html" class="primary-cta">
+                    <span class="cta-text">Hire Me</span>
                     <span class="cta-icon">→</span>
                 </a>
                 <a href="portfolio.html" class="secondary-cta">
-                    <span class="cta-text">View Our Work</span>
+                    <span class="cta-text">View My Work</span>
                     <div class="cta-hover-effect"></div>
                 </a>
             </div>
         </section>
 
-        <!-- Enhanced Services Preview -->
-        <section id="services-snapshot" class="services-preview">
-            <div class="section-header">
-                <h2 class="gradient-text">Services</h2>
-                <p class="section-intro">Comprehensive solutions for your digital needs</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-preview-card glass-card hover-lift">
-                    <div class="service-icon">✨</div>
-                    <h3>Branding</h3>
-                    <p>Strategic brand development and identity design</p>
-                    <div class="card-hover-effect"></div>
-                </div>
-                <!-- Add more service preview cards -->
-            </div>
-        </section>
-
-        <!-- Enhanced Impact Statement -->
+        <!-- Impact Section -->
         <section id="impact" class="impact-section glass-card">
             <div class="impact-content">
                 <h2 class="gradient-text">Making a Difference</h2>
@@ -105,23 +88,112 @@
             </div>
         </section>
 
+        <!-- Services Section -->
+        <section id="services-snapshot" class="services-preview">
+            <h2 class="gradient-text">Services</h2>
+            <div class="services-grid">
+                <article class="service-card">
+                    <div class="service-icon">&lt;/&gt;</div>
+                    <h2>Developer</h2>
+                    <ul class="service-features">
+                        <li>Full Stack Development</li>
+                        <li>Front End Development</li>
+                        <li>App Development</li>
+                    </ul>
+                    <a href="services/web-development.html" class="primary-btn">
+                        <span class="cta-text">Learn More</span>
+                        <span class="icon">→</span>
+                    </a>
+                </article>
+
+                <article class="service-card">
+                    <div class="service-icon" style="transform: rotate(-135deg); font-size: 3.6rem; margin-left: -12px;">➤</div>
+                    <h2>Designer</h2>
+                    <ul class="service-features">
+                        <li>UI/UX Design</li>
+                        <li>Graphic Design</li>
+                        <li>Logo Design</li>
+                    </ul>
+                    <a href="services/branding.html" class="primary-btn">
+                        <span class="cta-text">Learn More</span>
+                        <span class="icon">→</span>
+                    </a>
+                </article>
+            </div>
+        </section>
+
         <!-- Enhanced Featured Work -->
         <section id="featured" class="featured-work">
             <div class="section-header">
                 <h2 class="gradient-text">Featured Projects</h2>
             </div>
-            <div class="project-grid">
-                <article class="project-card glass-card hover-lift">
+            <div class="project-carousel">
+                <!-- Project 1 -->
+                <article class="project-card active">
                     <div class="project-image">
-                        <img src="path/to/image" alt="Project">
+                        <img src="images/project1.jpg" alt="E-commerce Platform">
                     </div>
                     <div class="project-info">
-                        <h3>Project Name</h3>
-                        <p>Brief description</p>
-                        <a href="#" class="project-link">View Case Study →</a>
+                        <h3>E-commerce Platform</h3>
+                        <div class="project-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                        </div>
+                        <p>A modern online shopping experience built with React and Node.js</p>
+                        <a href="#" class="primary-btn">
+                            <span class="cta-text">View Case Study</span>
+                            <span class="icon">→</span>
+                        </a>
                     </div>
                 </article>
-                <!-- Add more project cards -->
+
+                <!-- Project 2 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="images/project2.jpg" alt="Portfolio Website">
+                    </div>
+                    <div class="project-info">
+                        <h3>Artist Portfolio</h3>
+                        <div class="project-tags">
+                            <span>Next.js</span>
+                            <span>GSAP</span>
+                            <span>Tailwind</span>
+                        </div>
+                        <p>A minimalist portfolio showcasing artwork with dynamic animations</p>
+                        <a href="#" class="primary-btn">
+                            <span class="cta-text">View Case Study</span>
+                            <span class="icon">→</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="images/project3.jpg" alt="Mobile App">
+                    </div>
+                    <div class="project-info">
+                        <h3>Fitness Tracker App</h3>
+                        <div class="project-tags">
+                            <span>React Native</span>
+                            <span>Firebase</span>
+                            <span>Redux</span>
+                        </div>
+                        <p>Cross-platform mobile app for tracking workouts and nutrition</p>
+                        <a href="#" class="primary-btn">
+                            <span class="cta-text">View Case Study</span>
+                            <span class="icon">→</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Navigation dots -->
+                <div class="carousel-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                </div>
             </div>
         </section>
 
@@ -130,8 +202,42 @@
             <div class="section-header">
                 <h2 class="gradient-text">Client Testimonials</h2>
             </div>
-            <div class="testimonials-slider">
-                <!-- Add testimonial cards -->
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>CEO, TechStart Inc.</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"Working with Akhi was an incredible experience. The attention to detail and creative solutions exceeded our expectations."</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Founder, DesignCraft</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"The website redesign transformed our online presence. We've seen a significant increase in user engagement and conversions."</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Emma Davis</h4>
+                            <p>Product Manager, AppWorks</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"Exceptional work on our mobile app. The user interface is intuitive and the performance is outstanding."</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
