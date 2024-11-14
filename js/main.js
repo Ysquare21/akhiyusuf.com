@@ -168,4 +168,54 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Add click functionality for tech items
+    const techItems = document.querySelectorAll('.tech-item');
+    let activeTooltip = null;
+
+    techItems.forEach(item => {
+        // Handle click
+        item.addEventListener('click', (e) => {
+            // If there's an active tooltip and it's not this one, hide it
+            if (activeTooltip && activeTooltip !== item) {
+                activeTooltip.classList.remove('tooltip-active');
+            }
+            
+            // Toggle tooltip for clicked item
+            item.classList.toggle('tooltip-active');
+            activeTooltip = item.classList.contains('tooltip-active') ? item : null;
+            
+            // Pause carousel animation
+            const carousel = item.closest('.tech-carousel');
+            if (carousel) {
+                const row = carousel.querySelector('.tech-row');
+                row.style.animationPlayState = 'paused';
+            }
+        });
+
+        // Handle hover
+        item.addEventListener('mouseenter', () => {
+            const carousel = item.closest('.tech-carousel');
+            if (carousel) {
+                const row = carousel.querySelector('.tech-row');
+                row.style.animationPlayState = 'paused';
+            }
+        });
+
+        item.addEventListener('mouseleave', () => {
+            const carousel = item.closest('.tech-carousel');
+            if (carousel) {
+                const row = carousel.querySelector('.tech-row');
+                row.style.animationPlayState = 'running';
+            }
+        });
+    });
+
+    // Close tooltip when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.tech-item') && activeTooltip) {
+            activeTooltip.classList.remove('tooltip-active');
+            activeTooltip = null;
+        }
+    });
+
 }); 
