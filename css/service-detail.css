@@ -1,4 +1,4 @@
-/* Service Detail Pages Styles */
+/* Service Hero */
 .service-hero {
     height: 50vh;
     display: flex;
@@ -8,8 +8,7 @@
     text-align: center;
     margin-top: 60px;
     padding: 2rem;
-    background: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.7)),
-                url('../images/branding-bg.jpg') center/cover;
+    width: 100%;
 }
 
 .branding-hero {
@@ -34,10 +33,31 @@
     color: var(--text-secondary);
 }
 
+/* Tech Stack Section */
+.tech-stack {
+    padding: 4rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    order: 2;
+}
+
+.tech-carousel-container {
+    width: 100%;
+    position: relative;
+    margin-top: 100px;
+    overflow: visible;
+}
+
+/* Service Details Section */
 .service-details {
     max-width: 1200px;
+    width: 100%;
     margin: 4rem auto;
-    padding: 0 2rem;
+    padding: 0;
+    position: relative;
+    order: 3;
 }
 
 .service-overview {
@@ -101,11 +121,14 @@
     margin-bottom: 0.5rem;
 }
 
+/* CTA Section */
 .cta-section {
     text-align: center;
-    padding: 6rem 2rem;
+    padding: 6rem 0;
     background: var(--bg-secondary);
     margin-top: 4rem;
+    width: 100%;
+    order: 4;
 }
 
 .cta-section h2 {
@@ -114,12 +137,6 @@
 
 .cta-section p {
     margin-bottom: 2rem;
-}
-
-.tech-stack {
-    padding: 4rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .tech-grid {
@@ -230,40 +247,50 @@
 }
 
 /* Tech Stack Carousel */
-.tech-carousel-container {
-    width: 100%;
-    overflow: visible;
-    padding: 1rem 0;
-    position: relative;
-    margin-top: 100px;
-}
-
 .tech-carousel {
     margin: 1rem 0;
-    overflow: visible;
     position: relative;
     padding: 0.5rem 0;
+    width: 100%;
+    overflow: hidden;
 }
 
 .tech-row {
     display: flex;
     gap: 1rem;
-    animation-duration: 20s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
     width: max-content;
 }
 
 /* Left to Right Animation */
 .tech-carousel-ltr .tech-row {
-    animation-name: scrollLeft;
+    animation: infiniteScrollLeft 30s linear infinite;
 }
 
 /* Right to Left Animation */
 .tech-carousel-rtl .tech-row {
-    animation-name: scrollRight;
+    animation: infiniteScrollRight 30s linear infinite;
 }
 
+/* Updated scroll animations */
+@keyframes infiniteScrollLeft {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes infiniteScrollRight {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Tech Items */
 .tech-item {
     background: rgba(31, 31, 31, 0.6);
     padding: 0.8rem 1.5rem;
@@ -273,31 +300,7 @@
     color: var(--text-primary);
     transition: all 0.3s ease;
     position: relative;
-    cursor: pointer;
-}
-
-.tech-item:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-color);
-    box-shadow: 0 5px 15px rgba(114, 137, 218, 0.1);
-}
-
-@keyframes scrollLeft {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%);
-    }
-}
-
-@keyframes scrollRight {
-    from {
-        transform: translateX(-50%);
-    }
-    to {
-        transform: translateX(0);
-    }
+    z-index: 2;
 }
 
 /* Pause animation on hover */
@@ -325,7 +328,7 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease;
-    z-index: 1001;
+    z-index: 1000;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
     pointer-events: none;
@@ -403,4 +406,28 @@
     transform: translateY(-5px);
     border-color: var(--accent-color);
     box-shadow: 0 5px 15px rgba(114, 137, 218, 0.1);
+}
+
+/* Add flex container to main */
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container for consistent width */
+.section-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Project Card Button */
+.project-card .primary-btn {
+    width: 180px;
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
 } 

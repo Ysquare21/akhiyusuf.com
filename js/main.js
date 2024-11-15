@@ -1,3 +1,5 @@
+console.log('Main JS loaded');
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Handle mobile navigation
