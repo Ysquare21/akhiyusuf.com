@@ -720,7 +720,7 @@ body::before {
     width: 100%;
     opacity: 0;
     transform: translateY(10px);
-    transition: all 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     margin-top: auto;
 }
 
@@ -756,12 +756,8 @@ body::before {
         var(--accent-color),
         #8ba0e7
     );
-    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 0 10px var(--accent-color);
-}
-
-.bento-service:hover .skill-fill {
-    width: var(--skill-level);
+    transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .skill-level {
@@ -770,19 +766,59 @@ body::before {
     display: block;
     text-align: right;
     font-weight: 600;
-    text-shadow: 0 0 10px rgba(114, 137, 218, 0.5);
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Update existing styles to accommodate skill indicator */
-.bento-service p {
-    margin-bottom: 2rem;
+.bento-service:hover .skill-level {
+    opacity: 1;
 }
 
-.service-link {
-    margin-top: 0;
+/* Small Box Transitions */
+.bento-service.small .service-content {
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
-/* Remove service link styles since we're removing the buttons */
-.service-link {
-    display: none;
+.bento-service.small .skill-circle {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.bento-service.small:hover .service-content {
+    opacity: 0;
+}
+
+.bento-service.small:hover .skill-circle {
+    opacity: 1;
+}
+
+/* Progress Ring Styles */
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+    stroke-dasharray: 326.73; /* 2 * π * r */
+    stroke-dashoffset: 326.73;
+    transition: stroke-dashoffset 1s ease;
+}
+
+.circle-percentage {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    opacity: 0;
+    transform: rotate(90deg);
+    transition: opacity 0.3s ease 0.3s;
+}
+
+.bento-service.small:hover .circle-percentage {
+    opacity: 1;
 }

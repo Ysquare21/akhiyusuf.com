@@ -239,10 +239,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initialize skill bars
+    // Initialize skill bars with animated numbers
     document.querySelectorAll('.skill-fill').forEach(fill => {
-        const level = fill.dataset.level;
-        fill.style.setProperty('--skill-level', `${level}%`);
+        const level = parseInt(fill.dataset.level);
+        const levelDisplay = fill.parentElement.nextElementSibling;
+        fill.style.setProperty('--skill-level', '0%');
+        levelDisplay.textContent = '0%';
+
+        // Create animation function
+        function animateSkill(element, display, targetLevel) {
+            let currentLevel = 0;
+            const duration = 1000; // 1 second
+            const interval = 16; // ~60fps
+            const steps = duration / interval;
+            const increment = targetLevel / steps;
+
+            const animation = setInterval(() => {
+                currentLevel += increment;
+                if (currentLevel >= targetLevel) {
+                    currentLevel = targetLevel;
+                    clearInterval(animation);
+                }
+                element.style.width = `${currentLevel}%`; // Direct width update
+                display.textContent = `${Math.round(currentLevel)}%`;
+            }, interval);
+        }
+
+        // Add hover listener to parent card
+        const card = fill.closest('.bento-service');
+        card.addEventListener('mouseenter', () => {
+            fill.style.transition = 'none'; // Remove transition temporarily
+            animateSkill(fill, levelDisplay, level);
+        });
+
+        // Reset on mouseleave
+        card.addEventListener('mouseleave', () => {
+            fill.style.transition = 'width 0.3s ease'; // Add transition back
+            fill.style.width = '0%';
+            levelDisplay.textContent = '0%';
+        });
     });
 
 }); 
