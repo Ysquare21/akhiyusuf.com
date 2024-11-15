@@ -259,34 +259,37 @@
     display: flex;
     gap: 1rem;
     width: max-content;
+    position: relative;
 }
 
-/* Left to Right Animation */
+/* Left to Right Animation - Start from middle with immediate second set */
 .tech-carousel-ltr .tech-row {
     animation: infiniteScrollLeft 30s linear infinite;
+    transform: translateX(-50%); /* Start from middle */
 }
 
-/* Right to Left Animation */
+/* Right to Left Animation - Start from middle with immediate second set */
 .tech-carousel-rtl .tech-row {
     animation: infiniteScrollRight 30s linear infinite;
+    transform: translateX(0); /* Start from beginning */
 }
 
 /* Updated scroll animations */
 @keyframes infiniteScrollLeft {
-    from {
-        transform: translateX(0);
-    }
-    to {
+    0% {
         transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
     }
 }
 
 @keyframes infiniteScrollRight {
-    from {
-        transform: translateX(-50%);
-    }
-    to {
+    0% {
         transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
     }
 }
 

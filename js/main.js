@@ -25,27 +25,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Mouse tracking for bento cards
+    // Mouse tracking for bento grid
+    const bentoGrid = document.querySelector('.services-bento-grid');
     const bentoCards = document.querySelectorAll('.bento-service');
-    
-    if (bentoCards.length > 0) {
-        bentoCards.forEach(card => {
-            card.classList.add('track-mouse');
-            
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                requestAnimationFrame(() => {
-                    card.style.setProperty('--mouse-x', `${x}px`);
-                    card.style.setProperty('--mouse-y', `${y}px`);
-                });
-            });
 
-            card.addEventListener('mouseleave', () => {
-                card.style.setProperty('--mouse-x', '50%');
-                card.style.setProperty('--mouse-y', '50%');
+    if (bentoGrid && bentoCards.length) {
+        bentoGrid.addEventListener('mousemove', e => {
+            const gridRect = bentoGrid.getBoundingClientRect();
+            const mouseX = e.clientX - gridRect.left;
+            const mouseY = e.clientY - gridRect.top;
+
+            bentoCards.forEach(card => {
+                const cardRect = card.getBoundingClientRect();
+                const cardX = cardRect.left - gridRect.left + cardRect.width / 2;
+                const cardY = cardRect.top - gridRect.top + cardRect.height / 2;
+                
+                // Calculate distance from mouse to card center
+                const distance = Math.hypot(mouseX - cardX, mouseY - cardY);
+                
+                // Add 'near' class based on proximity (increased radius)
+                if (distance < 600) { // Increased from 400
+                    card.classList.add('near');
+                    
+                    // Calculate relative mouse position for the card
+                    const relativeX = mouseX - (cardRect.left - gridRect.left);
+                    const relativeY = mouseY - (cardRect.top - gridRect.top);
+                    
+                    requestAnimationFrame(() => {
+                        card.style.setProperty('--mouse-x', `${relativeX}px`);
+                        card.style.setProperty('--mouse-y', `${relativeY}px`);
+                    });
+                } else {
+                    card.classList.remove('near');
+                }
+            });
+        });
+
+        // Remove 'near' class when mouse leaves grid
+        bentoGrid.addEventListener('mouseleave', () => {
+            bentoCards.forEach(card => {
+                card.classList.remove('near');
             });
         });
     }
@@ -218,6 +237,12 @@ document.addEventListener('DOMContentLoaded', function() {
             activeTooltip.classList.remove('tooltip-active');
             activeTooltip = null;
         }
+    });
+
+    // Initialize skill bars
+    document.querySelectorAll('.skill-fill').forEach(fill => {
+        const level = fill.dataset.level;
+        fill.style.setProperty('--skill-level', `${level}%`);
     });
 
 }); 
