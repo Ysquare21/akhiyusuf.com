@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     clearInterval(animation);
                     return;
                 }
-                currentLevel += 2; // Faster animation
+                currentLevel += 2;
                 skillFill.style.width = `${currentLevel}%`;
                 percentage.textContent = `${currentLevel}%`;
             }, 10);
@@ -271,25 +271,6 @@ document.addEventListener('DOMContentLoaded', function() {
             skillFill.style.width = '0%';
             percentage.textContent = '0%';
         });
-    });
-
-    // Apple-style loader animation
-    document.querySelectorAll('.bento-service:not(.small)').forEach(box => {
-        const circle = box.querySelector('.progress-ring__circle');
-        const loaderText = box.querySelector('.loader-text');
-        
-        if (circle && loaderText) {
-            const percentage = parseInt(loaderText.textContent);
-            const offset = 326.73 - (326.73 * percentage / 100);
-            
-            box.addEventListener('mouseenter', () => {
-                circle.style.setProperty('--progress', offset);
-            });
-            
-            box.addEventListener('mouseleave', () => {
-                circle.style.setProperty('--progress', '326.73');
-            });
-        }
     });
 
 }); 
