@@ -749,13 +749,9 @@ body::before {
 }
 
 .skill-fill {
-    width: 0;
+    width: var(--skill-level, 0%);
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        var(--accent-color),
-        #8ba0e7
-    );
+    background: linear-gradient(90deg, var(--accent-color), #8ba0e7);
     box-shadow: 0 0 10px var(--accent-color);
     transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -774,51 +770,100 @@ body::before {
     opacity: 1;
 }
 
-/* Small Box Transitions */
-.bento-service.small .service-content {
-    opacity: 1;
+/* Small Service Box Styles */
+.bento-service.small {
+    position: relative;
+    overflow: hidden;
+}
+
+.service-content {
     transition: opacity 0.3s ease;
 }
 
-.bento-service.small .skill-circle {
+.skill-display {
     position: absolute;
     inset: 0;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    padding: 2rem;
 }
 
+.skill-display .skill-percentage {
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.skill-display .skill-bar {
+    width: 80%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.skill-display .skill-fill {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), #8ba0e7);
+    transition: none; /* Remove transition to allow JS control */
+}
+
+/* Hover States */
 .bento-service.small:hover .service-content {
     opacity: 0;
 }
 
-.bento-service.small:hover .skill-circle {
+.bento-service.small:hover .skill-display {
     opacity: 1;
 }
 
-/* Progress Ring Styles */
-.progress-ring {
-    transform: rotate(-90deg);
+/* Apple-style loader */
+.apple-loader {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 2rem auto 0;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
 }
 
-.progress-ring-circle {
+.progress-ring__circle {
     stroke-dasharray: 326.73; /* 2 * π * r */
     stroke-dashoffset: 326.73;
-    transition: stroke-dashoffset 1s ease;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    transition: stroke-dashoffset 1.5s ease;
 }
 
-.circle-percentage {
+.loader-text {
     position: absolute;
-    font-size: 1.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem;
     font-weight: 600;
     color: var(--accent-color);
     opacity: 0;
-    transform: rotate(90deg);
-    transition: opacity 0.3s ease 0.3s;
+    transition: opacity 0.3s ease;
 }
 
-.bento-service.small:hover .circle-percentage {
+/* Hover states */
+.bento-service:hover .apple-loader {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.bento-service:hover .progress-ring__circle {
+    stroke-dashoffset: var(--progress, 0);
+}
+
+.bento-service:hover .loader-text {
     opacity: 1;
 }

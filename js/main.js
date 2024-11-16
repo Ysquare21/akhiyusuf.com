@@ -239,45 +239,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initialize skill bars with animated numbers
-    document.querySelectorAll('.skill-fill').forEach(fill => {
-        const level = parseInt(fill.dataset.level);
-        const levelDisplay = fill.parentElement.nextElementSibling;
-        fill.style.setProperty('--skill-level', '0%');
-        levelDisplay.textContent = '0%';
+    // Small service box percentage animation
+    document.querySelectorAll('.bento-service.small').forEach(box => {
+        const skillFill = box.querySelector('.skill-display .skill-fill');
+        const percentage = box.querySelector('.skill-display .skill-percentage');
+        const targetLevel = parseInt(skillFill.dataset.level);
+        let animation;
 
-        // Create animation function
-        function animateSkill(element, display, targetLevel) {
+        function animateSkill() {
+            if (animation) clearInterval(animation);
+            
             let currentLevel = 0;
-            const duration = 1000; // 1 second
-            const interval = 16; // ~60fps
-            const steps = duration / interval;
-            const increment = targetLevel / steps;
-
-            const animation = setInterval(() => {
-                currentLevel += increment;
+            skillFill.style.width = '0%';
+            percentage.textContent = '0%';
+            
+            animation = setInterval(() => {
                 if (currentLevel >= targetLevel) {
-                    currentLevel = targetLevel;
                     clearInterval(animation);
+                    return;
                 }
-                element.style.width = `${currentLevel}%`; // Direct width update
-                display.textContent = `${Math.round(currentLevel)}%`;
-            }, interval);
+                currentLevel += 2; // Faster animation
+                skillFill.style.width = `${currentLevel}%`;
+                percentage.textContent = `${currentLevel}%`;
+            }, 10);
         }
 
-        // Add hover listener to parent card
-        const card = fill.closest('.bento-service');
-        card.addEventListener('mouseenter', () => {
-            fill.style.transition = 'none'; // Remove transition temporarily
-            animateSkill(fill, levelDisplay, level);
-        });
+        box.addEventListener('mouseenter', animateSkill);
 
-        // Reset on mouseleave
-        card.addEventListener('mouseleave', () => {
-            fill.style.transition = 'width 0.3s ease'; // Add transition back
-            fill.style.width = '0%';
-            levelDisplay.textContent = '0%';
+        box.addEventListener('mouseleave', () => {
+            if (animation) clearInterval(animation);
+            skillFill.style.width = '0%';
+            percentage.textContent = '0%';
         });
+    });
+
+    // Apple-style loader animation
+    document.querySelectorAll('.bento-service:not(.small)').forEach(box => {
+        const circle = box.querySelector('.progress-ring__circle');
+        const loaderText = box.querySelector('.loader-text');
+        
+        if (circle && loaderText) {
+            const percentage = parseInt(loaderText.textContent);
+            const offset = 326.73 - (326.73 * percentage / 100);
+            
+            box.addEventListener('mouseenter', () => {
+                circle.style.setProperty('--progress', offset);
+            });
+            
+            box.addEventListener('mouseleave', () => {
+                circle.style.setProperty('--progress', '326.73');
+            });
+        }
     });
 
 }); 
