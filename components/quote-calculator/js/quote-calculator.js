@@ -133,41 +133,6 @@ class QuoteCalculator {
                     ],
                     description: 'Full-featured mobile solution'
                 }
-            },
-            customProject: {
-                basic: {
-                    label: 'Basic Package (UI/UX Design, Requirements, Core Features, Testing, Documentation & More)',
-                    features: [
-                        'UI/UX Design: Custom interface design',
-                        'Requirements: Detailed project planning',
-                        'Core Features: Essential functionality',
-                        'Testing: Basic quality assurance',
-                        'Documentation: User guides and manuals'
-                    ],
-                    description: 'Essential custom project features'
-                },
-                recommended: {
-                    label: 'Recommended Package (Basic + Advanced Features, Performance, Testing Suite, Training, Extended Support & More)',
-                    features: [
-                        'Advanced Features: Complex functionality',
-                        'Performance: Speed and efficiency optimization',
-                        'Testing Suite: Comprehensive QA process',
-                        'Training: Team onboarding sessions',
-                        'Extended Support: Priority assistance'
-                    ],
-                    description: 'Professional development services'
-                },
-                premium: {
-                    label: 'Premium Package (Recommended + Custom Development, AI Integration, Security Audit, Project Management, VIP Support & More)',
-                    features: [
-                        'Custom Development: Tailored solutions',
-                        'AI Integration: Advanced AI capabilities',
-                        'Security Audit: Comprehensive testing',
-                        'Project Management: Dedicated manager',
-                        'VIP Support: 24/7 priority assistance'
-                    ],
-                    description: 'Enterprise-level custom solutions'
-                }
             }
         };
         this.currentPrice = 0;
@@ -177,8 +142,7 @@ class QuoteCalculator {
             'website': 2500,
             'webApplication': 5000,
             'mobileApplication': 7500,
-            'ecommerce': 4000,
-            'custom': 3500
+            'ecommerce': 4000
         };
 
         // Multipliers for different options
@@ -238,6 +202,9 @@ class QuoteCalculator {
         
         // Initialize dropdowns
         this.initializeDropdowns();
+        
+        // Initialize form
+        this.initializeForm();
     }
 
     createFloatingButton() {
@@ -288,7 +255,6 @@ class QuoteCalculator {
                                                 <option value="website">Website</option>
                                                 <option value="webApplication">Web Application</option>
                                                 <option value="mobileApplication">Mobile Application</option>
-                                                <option value="customProject">Custom Project</option>
                                             </select>
                                         </div>
                                     </div>
@@ -375,6 +341,9 @@ class QuoteCalculator {
                     <footer class="modal-footer">
                         <button type="button" class="download-quote">Download Quote</button>
                         <button type="submit" class="start-project">Start Project</button>
+                        <button type="button" class="discuss-project-button">
+                            Discuss Project Details
+                        </button>
                     </footer>
                 </div>
             `;
@@ -382,242 +351,166 @@ class QuoteCalculator {
         }
     }
 
-    initializeDropdowns() {
-        const dropdowns = this.modal.querySelectorAll('select');
-        dropdowns.forEach(select => {
-            // Create wrapper
-            const wrapper = document.createElement('div');
-            wrapper.className = 'mobile-select-wrapper';
-            select.parentElement.insertBefore(wrapper, select);
-
-            // Create trigger button
-            const trigger = document.createElement('button');
-            trigger.className = 'mobile-select-trigger';
-            trigger.setAttribute('type', 'button');
-            trigger.setAttribute('aria-haspopup', 'listbox');
-            trigger.setAttribute('aria-expanded', 'false');
-
-            // Create value display
-            const valueSpan = document.createElement('span');
-            valueSpan.className = 'mobile-select-value placeholder';
-            valueSpan.textContent = select.options[select.selectedIndex]?.textContent || 'Select an option';
-            if (select.value) valueSpan.classList.remove('placeholder');
-
-            // Create icon
-            const icon = document.createElement('span');
-            icon.className = 'mobile-select-icon';
-            icon.innerHTML = '▼';
-
-            trigger.appendChild(valueSpan);
-            trigger.appendChild(icon);
-
-            // Create dropdown
-            const dropdown = document.createElement('div');
-            dropdown.className = 'mobile-select-dropdown';
-            dropdown.setAttribute('role', 'listbox');
-
-            // Only add search for industry dropdown
-            if (select.name === 'industry') {
-                const searchWrapper = document.createElement('div');
-                searchWrapper.className = 'mobile-select-search';
-                const searchInput = document.createElement('input');
-                searchInput.type = 'text';
-                searchInput.placeholder = 'Search industries...';
-                searchInput.setAttribute('aria-label', 'Search industries');
-                searchWrapper.appendChild(searchInput);
-                dropdown.appendChild(searchWrapper);
+    populateOptions(select, optionsContainer) {
+        console.log('Populating options for select:', select);
+        optionsContainer.innerHTML = '';
+        Array.from(select.options).forEach(option => {
+            if (option.value) {  // Skip empty/placeholder options
+                const optionElement = document.createElement('div');
+                optionElement.className = 'mobile-select-option';
+                optionElement.setAttribute('data-value', option.value);
+                optionElement.textContent = option.textContent;
+                console.log('Created option element:', optionElement);
+                optionsContainer.appendChild(optionElement);
             }
-
-            // Create options container
-            const optionsContainer = document.createElement('div');
-            optionsContainer.className = 'mobile-select-options';
-            optionsContainer.setAttribute('role', 'listbox');
-
-            dropdown.appendChild(optionsContainer);
-
-            // Add elements to wrapper
-            wrapper.appendChild(trigger);
-            wrapper.appendChild(select);
-            select.className = 'mobile-select-native';
-            wrapper.appendChild(dropdown);
-
-            // Initialize the mobile select functionality
-            this.initializeMobileSelect(wrapper);
         });
     }
 
-    initializeMobileSelect(mobileSelect) {
-        const trigger = mobileSelect.querySelector('.mobile-select-trigger');
-        const nativeSelect = mobileSelect.querySelector('.mobile-select-native');
-        const dropdown = mobileSelect.querySelector('.mobile-select-dropdown');
-        const optionsContainer = mobileSelect.querySelector('.mobile-select-options');
-        const searchInput = mobileSelect.querySelector('.mobile-select-search input');
-        const valueSpan = mobileSelect.querySelector('.mobile-select-value');
-
-        // Create and append backdrop
-        const backdrop = document.createElement('div');
-        backdrop.className = 'mobile-select-backdrop';
-        document.body.appendChild(backdrop);
-
-        // Populate options with special sorting only for industry dropdown
-        const options = Array.from(nativeSelect.options)
-            .map(option => ({
-                value: option.value,
-                label: option.textContent
-            }));
-
-        // Only apply special sorting for the industry dropdown
-        if (nativeSelect.name === 'industry') {
-            options.sort((a, b) => {
-                // "Select your industry" always at top
-                if (a.label.toLowerCase() === 'select your industry') return -1;
-                if (b.label.toLowerCase() === 'select your industry') return 1;
-                
-                // "Other" always at bottom
-                if (a.label.toLowerCase() === 'other') return 1;
-                if (b.label.toLowerCase() === 'other') return -1;
-                
-                // Everything else alphabetically
-                return a.label.localeCompare(b.label);
-            });
-        }
-
-        const renderOptions = (filterText = '') => {
-            let filtered = options;
+    initializeDropdowns() {
+        const selectElements = document.querySelectorAll('select:not(.mobile-select-native)');
+        
+        selectElements.forEach(select => {
+            console.log('Initializing dropdown for select:', select);
             
-            // Only apply filtering for industry dropdown
-            if (nativeSelect.name === 'industry' && filterText) {
-                filtered = options.filter(option => 
-                    option.label.toLowerCase().includes(filterText.toLowerCase())
-                );
-            }
-
-            optionsContainer.innerHTML = filtered.map(option => `
-                <div class="mobile-select-option" role="option" data-value="${option.value}" 
-                    ${nativeSelect.value === option.value ? 'aria-selected="true"' : ''}>
-                    ${option.label}
-                </div>
-            `).join('');
-
-            // Make options focusable
-            optionsContainer.querySelectorAll('.mobile-select-option').forEach(option => {
-                option.setAttribute('tabindex', '0');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'mobile-select-wrapper';
+            
+            const trigger = document.createElement('button');
+            trigger.className = 'mobile-select-trigger';
+            trigger.type = 'button';
+            
+            const placeholder = select.getAttribute('data-placeholder') || 
+                              (select.options[0]?.textContent || 'Select Option');
+            
+            trigger.innerHTML = `
+                <span class="mobile-select-value placeholder">${placeholder}</span>
+                <span class="mobile-select-icon">▼</span>
+            `;
+            
+            const dropdown = document.createElement('div');
+            dropdown.className = 'mobile-select-dropdown';
+            
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'mobile-select-options';
+            
+            // Add click handler for options
+            optionsContainer.addEventListener('click', function(e) {
+                console.log('Options container clicked', e.target);
+                const option = e.target.closest('.mobile-select-option');
+                console.log('Found option:', option);
+                
+                if (option) {
+                    console.log('Option clicked:', option.textContent);
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const value = option.getAttribute('data-value');
+                    const text = option.textContent;
+                    console.log('Selected value:', value, 'text:', text);
+                    
+                    // Update trigger text and remove placeholder class
+                    const valueSpan = trigger.querySelector('.mobile-select-value');
+                    valueSpan.textContent = text;
+                    valueSpan.classList.remove('placeholder');
+                    
+                    // Update original select and trigger change event
+                    select.value = value;
+                    console.log('Updated select value to:', value);
+                    
+                    const changeEvent = new Event('change', {
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    select.dispatchEvent(changeEvent);
+                    console.log('Dispatched change event');
+                    
+                    // Update formula table and price
+                    this.updateFormulaTable();
+                    this.calculatePrice();
+                    this.updateLivePrice();
+                    
+                    console.log('About to close dropdown');
+                    // Close dropdown
+                    optionsContainer.innerHTML = '';
+                    trigger.setAttribute('aria-expanded', 'false');
+                    dropdown.classList.remove('mobile-select-dropdown-open');
+                    console.log('Dropdown closed');
+                }
+            }.bind(this));  // Bind this to the class instance
+            
+            // Add click handler for trigger
+            trigger.addEventListener('click', (e) => {
+                console.log('Trigger clicked');
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+                console.log('Current expanded state:', isExpanded);
+                
+                // Toggle current dropdown
+                trigger.setAttribute('aria-expanded', !isExpanded);
+                dropdown.classList.toggle('mobile-select-dropdown-open');
+                
+                // Populate options only when opening
+                if (!isExpanded) {
+                    console.log('Populating options');
+                    this.populateOptions(select, optionsContainer);
+                }
             });
-        };
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!wrapper.contains(e.target)) {
+                    console.log('Outside click detected');
+                    optionsContainer.innerHTML = '';
+                    trigger.setAttribute('aria-expanded', 'false');
+                    dropdown.classList.remove('mobile-select-dropdown-open');
+                }
+            });
+            
+            // Assemble the custom select
+            dropdown.appendChild(optionsContainer);
+            wrapper.appendChild(trigger);
+            wrapper.appendChild(dropdown);
+            
+            // Insert the custom select before the original
+            select.parentNode.insertBefore(wrapper, select);
+            
+            // Hide the original select
+            select.style.display = 'none';
+        });
+    }
 
-        // Initial render
-        renderOptions();
-
-        const openDropdown = () => {
-            // Close any other open dropdowns first
-            document.querySelectorAll('.mobile-select-dropdown-open').forEach(d => {
-                if (d !== dropdown) {
-                    d.classList.remove('mobile-select-dropdown-open');
-                    d.previousElementSibling.setAttribute('aria-expanded', 'false');
+    initializeForm() {
+        const selects = document.querySelectorAll('select');
+        selects.forEach(select => {
+            // Set initial state
+            select.size = 1;
+            
+            // Handle opening dropdown
+            select.addEventListener('mousedown', function(e) {
+                if (this.size === 1) {
+                    e.preventDefault();
+                    this.size = 8; // Set size larger than needed to ensure 4 are visible
+                    this.focus();
                 }
             });
 
-            dropdown.classList.add('mobile-select-dropdown-open');
-            backdrop.classList.add('active');
-            trigger.setAttribute('aria-expanded', 'true');
-            
-            // Only reset search for industry dropdown
-            if (searchInput) {
-                searchInput.value = '';
-                searchInput.focus();
-            }
-            
-            renderOptions();
-        };
-
-        const closeDropdown = () => {
-            dropdown.classList.remove('mobile-select-dropdown-open');
-            backdrop.classList.remove('active');
-            trigger.setAttribute('aria-expanded', 'false');
-            trigger.focus();
-        };
-
-        // Handle trigger click
-        trigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            if (trigger.getAttribute('aria-expanded') === 'true') {
-                closeDropdown();
-            } else {
-                openDropdown();
-            }
-        });
-
-        // Handle option selection
-        optionsContainer.addEventListener('click', (e) => {
-            const option = e.target.closest('.mobile-select-option');
-            if (!option) return;
-
-            const value = option.dataset.value;
-            const label = option.textContent.trim();
-
-            nativeSelect.value = value;
-            valueSpan.textContent = label;
-            valueSpan.classList.remove('placeholder');
-
-            // Update native select and trigger change event
-            nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-
-            // Update aria-selected
-            optionsContainer.querySelectorAll('.mobile-select-option').forEach(opt => {
-                opt.setAttribute('aria-selected', opt.dataset.value === value);
+            // Handle closing dropdown
+            select.addEventListener('change', function() {
+                this.blur();
             });
 
-            closeDropdown();
-        });
-
-        // Handle search (only for industry dropdown)
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                renderOptions(e.target.value);
+            select.addEventListener('blur', function() {
+                this.size = 1;
             });
-        }
 
-        // Close on backdrop click
-        backdrop.addEventListener('click', closeDropdown);
-
-        // Close on escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && dropdown.classList.contains('mobile-select-dropdown-open')) {
-                closeDropdown();
-            }
-        });
-
-        // Handle keyboard navigation
-        optionsContainer.addEventListener('keydown', (e) => {
-            const options = optionsContainer.querySelectorAll('.mobile-select-option');
-            const currentOption = document.activeElement.closest('.mobile-select-option');
-            const currentIndex = Array.from(options).indexOf(currentOption);
-
-            switch (e.key) {
-                case 'ArrowDown':
+            // Prevent mousewheel from changing value when closed
+            select.addEventListener('wheel', function(e) {
+                if (this.size === 1) {
                     e.preventDefault();
-                    if (currentIndex < options.length - 1) {
-                        options[currentIndex + 1].focus();
-                    }
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    if (currentIndex > 0) {
-                        options[currentIndex - 1].focus();
-                    } else if (searchInput) {
-                        searchInput.focus();
-                    }
-                    break;
-                case 'Enter':
-                case ' ':
-                    e.preventDefault();
-                    if (currentOption) {
-                        currentOption.click();
-                    }
-                    break;
-            }
+                }
+            });
         });
     }
 
@@ -626,56 +519,50 @@ class QuoteCalculator {
         this.floatingBtn.addEventListener('click', () => {
             this.modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = this.getScrollbarWidth() + 'px';
         });
 
         // Close modal
         const closeBtn = this.modal.querySelector('.close-modal');
         closeBtn.addEventListener('click', () => {
-            this.closeModal();
+            this.modal.classList.remove('active');
+            document.body.style.overflow = '';
         });
 
-        // Close on outside click
-        this.modal.addEventListener('click', (e) => {
-            if (e.target === this.modal) {
-                this.closeModal();
-            }
-        });
-
+        // Handle form changes
         const form = this.modal.querySelector('#quoteForm');
-        
-        // Project type and features
-        const projectTypeSelect = form.querySelector('select[name="projectType"]');
-        
-        projectTypeSelect.addEventListener('change', (e) => {
-            const selectedType = e.target.value;
-        });
-
-        // Industry change
-        const industrySelect = form.querySelector('select[name="industry"]');
-        industrySelect.addEventListener('change', (e) => {
-            this.formData.industry = e.target.value;
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (this.modal.classList.contains('active')) {
-                if (e.key === 'Escape') {
-                    this.closeModal();
-                } else if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
-                    e.preventDefault();
-                    if (this.currentStep < 2) {
-                        this.nextStep();
-                    }
+        form.addEventListener('change', (e) => {
+            const target = e.target;
+            if (target.tagName === 'SELECT') {
+                // Store the value in formData
+                this.formData[target.name] = target.value;
+                
+                // Update UI
+                this.updateFormulaTable();
+                this.calculatePrice();
+                this.updateLivePrice();
+                
+                // Handle specific field updates
+                if (target.name === 'projectType') {
+                    this.updateComplexityDescription();
                 }
             }
         });
 
-        // Form change handler
-        form.addEventListener('change', (e) => this.handleFormChange(e));
+        // Handle complexity description updates
+        const complexitySelect = this.modal.querySelector('select[name="complexity"]');
+        if (complexitySelect) {
+            complexitySelect.addEventListener('change', () => {
+                this.updateComplexityDescription();
+            });
+        }
 
-        // Initialize custom select for industry dropdown
-        // this.initializeMobileSelect();
+        // Add discuss project button handler
+        const discussButton = this.modal.querySelector('.discuss-project-button');
+        if (discussButton) {
+            discussButton.addEventListener('click', () => {
+                this.openProjectChat();
+            });
+        }
     }
 
     handleFormChange(e) {
@@ -708,9 +595,6 @@ class QuoteCalculator {
         let basePrice = 0;
         if (projectType) {
             basePrice = this.basePrices[projectType] || 0;
-            if (projectType === 'customProject') {
-                basePrice = this.basePrices['custom'];
-            }
         }
         
         // Calculate multipliers
@@ -815,11 +699,34 @@ class QuoteCalculator {
     closeModal() {
         this.modal.classList.remove('active');
         document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
     }
 
     getScrollbarWidth() {
         return window.innerWidth - document.documentElement.clientWidth;
+    }
+
+    openProjectChat() {
+        const chatComponent = document.querySelector('chat-component');
+        if (chatComponent) {
+            const projectDetails = {
+                type: this.formData.projectType || 'Website',
+                complexity: this.formData.complexity || 'Basic',
+                timeline: this.formData.timeline || 'Standard',
+                price: this.currentPrice,
+                description: this.getProjectDescription()
+            };
+            chatComponent.loadFromCalculator(projectDetails);
+        }
+    }
+
+    getProjectDescription() {
+        const type = this.formData.projectType;
+        const complexity = this.formData.complexity || 'basic';
+        
+        if (type && this.featurePackages[type] && this.featurePackages[type][complexity]) {
+            return this.featurePackages[type][complexity].description;
+        }
+        return '';
     }
 }
 

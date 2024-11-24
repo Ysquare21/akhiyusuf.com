@@ -1,0 +1,25 @@
+/* Base styles */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+}
+
+/* For browsers that support it, this provides a native smooth scroll experience */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Smooth scrolling container */
+html, body {
+    height: 100%;
+    width: 100%;
+    overscroll-behavior-y: none; /* Prevents bounce effect on some browsers */
+}

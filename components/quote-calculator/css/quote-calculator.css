@@ -501,6 +501,26 @@ input[type="checkbox"]:checked::after {
     cursor: pointer;
 }
 
+.select-wrapper select[size],
+.mobile-select-wrapper select[size] {
+    height: auto !important;
+    padding: 0 !important;
+    size: 4 !important; /* Force show 4 options */
+}
+
+.select-wrapper select option,
+.mobile-select-wrapper select option {
+    padding: 12px 16px !important;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    height: 48px !important; /* Fixed height for options */
+    min-height: 48px !important;
+    line-height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+}
+
 /* Custom dropdown styles for mobile */
 @media (max-width: 768px) {
     .select-wrapper select {
@@ -523,6 +543,22 @@ input[type="checkbox"]:checked::after {
     }
 }
 
+@media (max-width: 480px) {
+    .select-wrapper select[size],
+    .mobile-select-wrapper select[size] {
+        position: absolute;
+        height: calc(48px * 4 + 2px) !important; /* Exact height for 4 options plus borders */
+        max-height: calc(48px * 4 + 2px) !important;
+        background: var(--black);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        margin-top: 4px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 !important;
+    }
+}
+
 /* Add custom scrollbar styling */
 .select-wrapper select::-webkit-scrollbar {
     width: 8px;
@@ -534,262 +570,10 @@ input[type="checkbox"]:checked::after {
 
 .select-wrapper select::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
 }
 
 .select-wrapper select::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
-}
-
-/* Add a custom select element for better mobile handling */
-.mobile-select-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.mobile-select-trigger {
-    width: 100%;
-    padding: 12px 16px;
-    background: var(--input-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    text-align: left;
-    font-size: 1rem;
-    color: var(--text-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.mobile-select-trigger:hover {
-    border-color: var(--border-hover-color);
-    background: var(--hover-bg);
-}
-
-.mobile-select-trigger:focus {
-    outline: none;
-    border-color: var(--blue);
-    box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.15);
-}
-
-.mobile-select-value {
-    color: var(--text-color);
-    font-weight: 400;
-}
-
-.mobile-select-value.placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.mobile-select-icon {
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.5);
-    transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
-    margin-left: 8px;
-}
-
-.mobile-select-trigger[aria-expanded="true"] .mobile-select-icon {
-    transform: rotate(180deg);
-}
-
-.mobile-select-native {
-    display: none;
-}
-
-.mobile-select-dropdown {
-    display: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(100% + 4px);
-    background: var(--black);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
-.mobile-select-dropdown.mobile-select-dropdown-open {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.mobile-select-search {
-    padding: 8px;
-    border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 0;
-    background: var(--black);
-    border-radius: 8px 8px 0 0;
-    z-index: 2;
-}
-
-.mobile-select-search input {
-    width: 100%;
-    padding: 10px 14px;
-    background: var(--input-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-size: 0.95rem;
-    color: var(--text-color);
-    transition: all 0.2s ease;
-}
-
-.mobile-select-search input:hover {
-    border-color: var(--border-hover-color);
-    background: var(--hover-bg);
-}
-
-.mobile-select-search input:focus {
-    outline: none;
-    border-color: var(--blue);
-    background: var(--input-bg);
-}
-
-.mobile-select-search input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.mobile-select-options {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    max-height: calc(3 * 42px); /* Height of 3 options */
-}
-
-.mobile-select-option {
-    height: 42px;
-    padding: 0 16px;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.95rem;
-    transition: all 0.15s ease;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.mobile-select-option:hover,
-.mobile-select-option:focus {
-    background: var(--hover-bg);
-    outline: none;
-}
-
-.mobile-select-option[aria-selected="true"] {
-    color: var(--blue);
-    background: rgba(0, 122, 255, 0.1);
-}
-
-.mobile-select-option[aria-selected="true"]::after {
-    content: "✓";
-    position: absolute;
-    right: 16px;
-    color: var(--blue);
-    font-size: 14px;
-}
-
-/* Mobile optimizations */
-@media (max-width: 768px) {
-    .mobile-select-trigger {
-        padding: 14px 16px;
-        font-size: 1rem;
-    }
-
-    .mobile-select-option {
-        height: 48px;
-        font-size: 1rem;
-    }
-
-    .mobile-select-options {
-        max-height: calc(3 * 48px); /* Height of 3 options on mobile */
-    }
-
-    .mobile-select-search input {
-        padding: 12px 14px;
-        font-size: 1rem;
-    }
-}
-
-/* Touch device optimizations */
-@media (hover: none) {
-    .mobile-select-option:hover {
-        background: none;
-    }
-
-    .mobile-select-option:active {
-        background: rgba(255, 255, 255, 0.08);
-    }
-}
-
-/* Scrollbar styling */
-.mobile-select-options::-webkit-scrollbar {
-    width: 8px;
-}
-
-.mobile-select-options::-webkit-scrollbar-track {
-    background: var(--black);
-}
-
-.mobile-select-options::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-    border: 2px solid var(--black);
-}
-
-.mobile-select-options::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* Empty state */
-.mobile-select-options:empty::after {
-    content: "No matching options";
-    display: block;
-    padding: 16px;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.95rem;
-}
-
-/* Dropdown menu styles */
-select option {
-    background-color: #1a1a1a;
-    color: rgba(255, 255, 255, 0.9);
-    padding: 12px 16px;
-}
-
-/* Style for disabled state */
-.select-wrapper select:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background: rgba(255, 255, 255, 0.02);
-    box-shadow: none;
-}
-
-/* Custom scrollbar for dropdown */
-select::-webkit-scrollbar {
-    width: 10px;
-    background-color: #1a1a1a;
-}
-
-select::-webkit-scrollbar-track {
-    background-color: #1a1a1a;
-    border-radius: 5px;
-}
-
-select::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    border: 2px solid #1a1a1a;
-    background-clip: padding-box;
-}
-
-select::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Firefox scrollbar */
@@ -841,7 +625,9 @@ select:focus {
 
 .price-breakdown h3 {
     color: var(--blue);
-    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 0 1rem 0;
 }
 
 /* Formula table and scrollbar styles */
@@ -1572,6 +1358,55 @@ select:focus {
     .modal-footer {
         padding: 0.5rem;
     }
+
+    .quote-calculator-modal {
+        background: var(--black);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 0;
+    }
+
+    .modal-content {
+        border-radius: 0;
+        max-height: 100vh;
+        height: 100vh;
+        border: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Add more space for complexity dropdown */
+    .form-content {
+        padding-bottom: 180px; /* Increased padding at the bottom */
+    }
+
+    /* Ensure the form content is scrollable */
+    .form-content {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Adjust the dropdown positioning */
+    .select-wrapper {
+        position: relative;
+    }
+
+    .select-wrapper select,
+    .mobile-select-wrapper select {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Ensure dropdowns expand properly */
+    .select-wrapper select[size],
+    .mobile-select-wrapper select[size] {
+        position: absolute;
+        max-height: 200px;
+        background: var(--black);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        margin-top: 4px;
+    }
 }
 
 /* Form group styles */
@@ -1618,8 +1453,8 @@ select:focus {
 }
 
 .form-group[data-type="complexity"] select:hover {
-    background: rgba(41, 151, 255, 0.08);
-    border-color: rgba(41, 151, 255, 0.3);
+    border-color: var(--blue);
+    background: var(--blue-bg);
 }
 
 /* Complexity description styles */
@@ -1895,11 +1730,11 @@ select:focus {
 .mobile-select-options {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    max-height: calc(3 * 42px); /* Height of 3 options */
+    max-height: calc(48px * 4); /* Height of 4 options */
 }
 
 .mobile-select-option {
-    height: 42px;
+    height: 48px;
     padding: 0 16px;
     cursor: pointer;
     color: rgba(255, 255, 255, 0.9);
@@ -1942,7 +1777,7 @@ select:focus {
     }
 
     .mobile-select-options {
-        max-height: calc(3 * 48px); /* Height of 3 options on mobile */
+        max-height: calc(48px * 4); /* Height of 4 options on mobile */
     }
 
     .mobile-select-search input {
@@ -2093,6 +1928,8 @@ select:focus {
         max-height: 100vh;
         height: 100vh;
         border: none;
+        display: flex;
+        flex-direction: column;
     }
 
     .modal-header {
@@ -2161,5 +1998,49 @@ select:focus {
 
     .form-group {
         margin-bottom: 1rem;
+    }
+}
+
+/* Override any browser default styles */
+select[size]:not([size="1"]) {
+    height: 192px !important; /* 48px * 4 */
+    padding: 0;
+}
+
+select option {
+    padding: 12px 16px;
+    height: 48px;
+    line-height: 24px;
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+    select[multiple], 
+    select[size]:not([size="1"]) {
+        height: 192px !important; /* 48px * 4 */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .form-content {
+        padding-bottom: 200px; /* Extra space for dropdowns */
+    }
+}
+
+/* Form content padding adjustments */
+.form-content {
+    padding: 1rem;
+    padding-bottom: 200px; /* Default padding for all screen sizes */
+}
+
+@media (min-width: 481px) {
+    .form-content {
+        padding-bottom: 250px; /* More space for wider screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .form-content {
+        padding-bottom: 200px; /* Keep existing mobile padding */
     }
 }

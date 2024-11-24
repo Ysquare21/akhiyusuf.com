@@ -1,6 +1,22 @@
-- static scroll fix (make the page scroll smoothly)
-- create a chat feature for potential cients (ability to calculate project from chat, ability to load chat from calculate project popup, ability to store )
-- make the page more centered around donating 80% of your income to Palestinians and Aid Groups in need
-- connect the chat feature to the dropdown
-- add to the projects (make it projects about quran hadith ai, website for ustadha, calisthenics app, freelancing website, ui/ux generator, and more, text/speech to sign language)
-fixing the ui/ux of the page  
+# Todo List
+
+## High Priority
+- Create a chat feature for potential clients
+  - Ability to calculate project from chat
+  - Ability to load chat from calculate project popup
+  - Ability to store projects in chat and view projects in chat without releasing it to users 
+
+## Content & Features
+- Make the page more centered around donating 80% of income to Palestinians and Aid Groups in need
+- Connect the chat feature to the dropdown
+- Add new projects:
+  - Quran/Hadith AI applications
+  - Website for Ustadha
+  - Calisthenics app
+  - Freelancing website
+  - UI/UX generator
+  - Text/speech to sign language converter
+
+## UI/UX Improvements
+- Static scroll fix (make the page scroll smoothly)
+- General UI/UX refinements

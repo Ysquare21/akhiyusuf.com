@@ -3,35 +3,142 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize components
     initializeComponents();
 
-    // Smooth scrolling with custom easing
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (!target) return;
+    // Simple smooth scrolling with easing
+    class SmoothScroll {
+        constructor() {
+            this.currentY = window.scrollY;
+            this.targetY = window.scrollY;
+            this.isScrolling = false;
+            this.ease = 0.1;
             
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-            const startPosition = window.pageYOffset;
-            const distance = targetPosition - startPosition;
-            let startTime = null;
+            this.init();
+        }
 
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                const progress = Math.min(timeElapsed / 1000, 1);
-                
-                // Easing function for smooth deceleration
-                const ease = t => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-                
-                window.scrollTo(0, startPosition + (distance * ease(progress)));
-
-                if (timeElapsed < 1000) {
-                    requestAnimationFrame(animation);
+        init() {
+            window.addEventListener('wheel', (e) => {
+                // Check if we're scrolling inside the modal
+                if (this.isInsideModal(e.target)) {
+                    return; // Let default scrolling happen inside modal
                 }
-            }
 
-            requestAnimationFrame(animation);
+                e.preventDefault();
+                
+                let delta = e.deltaY;
+                if (e.deltaMode === 1) delta *= 33.3;
+                if (e.deltaMode === 2) delta *= 100;
+                
+                this.targetY = Math.max(
+                    0,
+                    Math.min(
+                        this.targetY + delta,
+                        document.documentElement.scrollHeight - window.innerHeight
+                    )
+                );
+                
+                if (!this.isScrolling) {
+                    this.isScrolling = true;
+                    requestAnimationFrame(this.update.bind(this));
+                }
+            }, { passive: false });
+
+            // Touch device support
+            let touchStartY = 0;
+            let lastTouchY = 0;
+            
+            window.addEventListener('touchstart', (e) => {
+                if (this.isInsideModal(e.target)) {
+                    return; // Let default touch behavior happen inside modal
+                }
+                touchStartY = e.touches[0].clientY;
+                lastTouchY = touchStartY;
+            }, { passive: false });
+
+            window.addEventListener('touchmove', (e) => {
+                if (this.isInsideModal(e.target)) {
+                    return; // Let default touch behavior happen inside modal
+                }
+
+                e.preventDefault();
+                const touchY = e.touches[0].clientY;
+                const deltaY = (lastTouchY - touchY) * 2;
+                lastTouchY = touchY;
+                
+                this.targetY = Math.max(
+                    0,
+                    Math.min(
+                        this.targetY + deltaY,
+                        document.documentElement.scrollHeight - window.innerHeight
+                    )
+                );
+                
+                if (!this.isScrolling) {
+                    this.isScrolling = true;
+                    requestAnimationFrame(this.update.bind(this));
+                }
+            }, { passive: false });
+        }
+
+        isInsideModal(element) {
+            // Check if the element is inside the quote calculator modal
+            while (element && element !== document.body) {
+                if (element.classList.contains('quote-calculator-modal') ||
+                    element.classList.contains('modal-content') ||
+                    element.classList.contains('form-content')) {
+                    return true;
+                }
+                element = element.parentElement;
+            }
+            return false;
+        }
+
+        update() {
+            const diff = this.targetY - this.currentY;
+            
+            if (Math.abs(diff) > 0.5) {
+                this.currentY += diff * this.ease;
+                window.scrollTo(0, this.currentY);
+                requestAnimationFrame(this.update.bind(this));
+            } else {
+                this.isScrolling = false;
+                this.currentY = this.targetY;
+                window.scrollTo(0, this.currentY);
+            }
+        }
+    }
+
+    // Initialize smooth scroll
+    new SmoothScroll();
+
+    // Function to initialize smooth scroll for popup content
+    function initializePopupScroll() {
+        // Wait for the popup content to be fully rendered
+        setTimeout(() => {
+            const popupContent = document.querySelector('.modal-content');
+            if (popupContent) {
+                const popupScroll = new SmoothScroll(popupContent, { ease: 0.1 });
+            }
+        }, 100);
+    }
+
+    // Watch for popup opening
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === 1) { // Element node
+                    if (node.classList && 
+                        (node.classList.contains('modal-content') || 
+                         node.querySelector('.modal-content'))) {
+                        initializePopupScroll();
+                    }
+                }
+            });
         });
+    });
+
+    // Start observing the document for popup changes
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
     });
 
     // Parallax effect for hero section

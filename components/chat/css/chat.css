@@ -1,0 +1,299 @@
+/* Chat Component Styles */
+.chat-component {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.chat-floating-button {
+    position: fixed;
+    bottom: 84px; /* Position above the calculate button */
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #2997ff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+}
+
+.chat-floating-button:hover:not(.active) {
+    transform: scale(1.05);
+    background: #0077ff;
+}
+
+.chat-floating-button.active {
+    width: 360px;
+    height: 500px;
+    border-radius: 16px;
+    bottom: 84px; /* Match the chat container position */
+    background: rgba(28, 28, 30, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.chat-floating-button svg {
+    width: 24px;
+    height: 24px;
+    color: #ffffff;
+    transition: opacity 0.15s ease;
+}
+
+.chat-floating-button.active svg {
+    opacity: 0;
+}
+
+.chat-container {
+    position: fixed;
+    bottom: 84px; /* Position directly above calculate button */
+    right: 20px;
+    width: 360px;
+    height: 500px;
+    background: rgba(28, 28, 30, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transform-origin: bottom right;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: scale(0.95);
+    z-index: 999;
+    pointer-events: none;
+}
+
+.chat-container::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 20px;
+    width: 16px;
+    height: 16px;
+    background: rgba(28, 28, 30, 0.95);
+    transform: rotate(45deg);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.chat-container.chat-open {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: all;
+}
+
+/* Ensure content is hidden during animation */
+.chat-container:not(.chat-open) .chat-header,
+.chat-container:not(.chat-open) .chat-messages,
+.chat-container:not(.chat-open) .chat-input-container {
+    opacity: 0;
+}
+
+.chat-container.chat-open .chat-header,
+.chat-container.chat-open .chat-messages,
+.chat-container.chat-open .chat-input-container {
+    opacity: 1;
+    transition: opacity 0.2s ease 0.2s;
+}
+
+.chat-header {
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.chat-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.chat-control-button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    opacity: 0.7;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: opacity 0.2s;
+}
+
+.chat-control-button:hover {
+    opacity: 1;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chat-container.minimized .chat-messages,
+.chat-container.minimized .chat-input-container {
+    display: none;
+}
+
+.chat-message {
+    max-width: 80%;
+    padding: 12px;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.chat-message.user {
+    background: #2997ff;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-message.assistant {
+    background: rgba(255, 255, 255, 0.1);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+.chat-input-container {
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.chat-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #ffffff;
+    font-size: 14px;
+    resize: none;
+    max-height: 120px;
+    font-family: inherit;
+}
+
+.chat-input:focus {
+    outline: none;
+    border-color: #2997ff;
+}
+
+.chat-send-button {
+    background: #2997ff;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-send-button:hover {
+    background: #0077ff;
+}
+
+.chat-send-button svg {
+    width: 16px;
+    height: 16px;
+    fill: #ffffff;
+}
+
+.chat-project-preview {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 8px;
+}
+
+.chat-project-preview h4 {
+    margin: 0 0 8px 0;
+    color: #2997ff;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.chat-project-details {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.chat-project-price {
+    color: #2997ff;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.chat-container.show {
+    animation: slideIn 0.3s ease forwards;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .chat-container {
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+    .chat-container.minimized {
+        transform: translateY(calc(100% - 50px));
+    }
+}
+
+/* Dark Mode Enhancement */
+@media (prefers-color-scheme: dark) {
+    .chat-container {
+        background: rgba(28, 28, 30, 0.95);
+    }
+}
