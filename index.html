@@ -9,7 +9,12 @@
     <!-- SF Pro Display font -->
     <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
     <!-- Component Styles -->
+    <link rel="stylesheet" href="/components/shared/navigation/css/navigation.css">
+    <link rel="stylesheet" href="/components/layout/hero/css/hero.css">
     <link rel="stylesheet" href="/components/quote-calculator/css/quote-calculator.css">
+    <link rel="stylesheet" href="/components/shared/footer/css/footer.css">
+    <link rel="stylesheet" href="/components/shared/contact-form/css/contact-form.css">
+    <link rel="stylesheet" href="/components/shared/project-showcase/css/project-showcase.css">
 </head>
 <body>
     <nav>
@@ -121,6 +126,8 @@
                 </div>
             </div>
         </section>
+
+        <project-showcase></project-showcase>
     </main>
 
     <footer>
@@ -130,8 +137,16 @@
     </footer>
 
     <!-- Main Scripts -->
-    <script src="/js/main.js"></script>
+    <script src="/js/main.js" defer></script>
     <!-- Component Scripts -->
-    <script src="/components/quote-calculator/js/quote-calculator.js"></script>
+    <script type="module" src="/components/quote-calculator/js/quote-calculator.js"></script>
+    <quote-calculator-button></quote-calculator-button>
+    <div class="modal">
+        <header class="modal-header">
+            <h2>Project Calculator</h2>
+            <div class="live-price">Starting from <span class="price-amount">$0</span></div>
+            <button class="close-button">&times;</button>
+        </header>
+    </div>
 </body>
 </html>

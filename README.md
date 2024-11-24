@@ -12,26 +12,29 @@ A modern, Apple-inspired portfolio website showcasing my work and services.
 
 ```
 akhiyusuf.com/
-├── components/
+├── assets/           # Static assets
+│   ├── images/      # Image files
+│   └── fonts/       # Custom fonts
+├── components/      # Reusable components
 │   └── quote-calculator/
-│       ├── css/
-│       │   └── quote-calculator.css
-│       └── js/
-│           └── quote-calculator.js
-├── css/
+│       ├── css/    # Component-specific styles
+│       └── js/     # Component-specific scripts
+├── css/            # Global styles
 │   └── styles.css
-├── js/
+├── js/             # Global scripts
 │   └── main.js
-├── index.html
-├── package.json
-└── README.md
+├── pages/          # Additional pages
+│   └── 404.html
+├── index.html      # Main entry point
+├── package.json    # Project configuration
+└── README.md       # Documentation
 ```
 
 ## Features
 
 - Modern, Apple-inspired design
-- Responsive layout
 - Interactive quote calculator
+- Responsive layout
 - Dark mode design
 - Smooth animations and transitions
 
@@ -56,7 +59,7 @@ A sophisticated 4-step quote calculator with:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/akhiyusuf.com.git
+git clone https://github.com/Ysquare21/akhiyusuf.com.git
 cd akhiyusuf.com
 ```
 

@@ -1,12 +1,19 @@
 {
   "name": "akhiyusuf.com",
   "version": "1.0.0",
-  "description": "Personal portfolio website for Akhi Yusuf",
-  "main": "js/main.js",
+  "description": "Personal portfolio website with interactive quote calculator",
+  "main": "index.html",
   "scripts": {
+    "dev": "http-server -c-1 --cors -o -p 3000",
     "start": "http-server -p 3000",
-    "dev": "http-server -p 3000 -c-1"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "portfolio",
+    "web development",
+    "quote calculator",
+    "personal website"
+  ],
   "author": "Akhi Yusuf",
   "license": "MIT",
   "dependencies": {

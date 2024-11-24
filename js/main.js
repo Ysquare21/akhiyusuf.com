@@ -1,5 +1,8 @@
-// Wait for DOM to be fully loaded
+// Main JavaScript file
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize components
+    initializeComponents();
+
     // Smooth scrolling with custom easing
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -149,3 +152,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function initializeComponents() {
+    // Load component scripts
+    loadScript('/components/shared/navigation/js/navigation.js');
+    loadScript('/components/layout/hero/js/hero.js');
+    loadScript('/components/quote-calculator/js/quote-calculator.js');
+    loadScript('/components/shared/footer/js/footer.js');
+    loadScript('/components/shared/contact-form/js/contact-form.js');
+    loadScript('/components/shared/project-showcase/js/project-showcase.js');
+}
+
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
